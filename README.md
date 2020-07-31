@@ -40,10 +40,24 @@ Uma breve cobertura de testes foi realizada, bastando rodar um comando, para exe
 yarn test
 ```
 
+## Arquivo .env
+
+Normalmente, o arquivo .env não é comitado, tendo as variáveis ajustadas no deploy, de acordo com o ambiente. Para fins de testes, está arquivo está sendo enviado no momento.
+
 ## Visual
 
 Os estilos visuais, foram brevemente baseados na [Pokédex apresentada nos jogos Pokémon Sword & Shield](https://darylh.com/wp-content/uploads/2020/02/ezgif.com-optimize-1.gif)
 
-## Arquivo .env
+## Utilizando
 
-Normalmente, o arquivo .env não é comitado, tendo as variáveis ajustadas no deploy, de acordo com o ambiente. Para fins de testes, está arquivo está sendo enviado no momento.
+### Home
+
+Assim que for iniciado, a aplicação irá trazer uma listagem de 16 Pokémons iniciais. Para alterar a listagem, basta usar as setas no botão "Box", na parte inferior da tela, ou utilizar o campo de busca, inserindo o nome, ou número, de um Pokémon no campo de pesquisa e clicando na lupa, para iniciar a buscar. Clicar em algum Pokémon, ou realizar uma busca, irá levar até a tela de detalhes.
+
+### Detalhes
+
+Na tela de detalhes, são exibidos alguns status do Pokémon selecionado, sua imagem e cadeia evolutiva. Na parte inferior, existe um botão, para voltar para a Home, e um campo de pesquisa. Nesta tela, também é possível favoritar o Pokémon, clicando no ícone de coração, próximo à imagem dele.
+
+### Favoritos
+
+Quando um Pokémon é favoritado, ele é exibido na sidebar de Favoritos, sendo possível clicar e ser direcionado até a página de detalhes do mesmo. Para remover um Pokémon dos favoritos, basta clicar novamente no ícone de coração, na tela de Detalhes.
