@@ -17,6 +17,13 @@ class PokemonSlot extends Component {
     }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    return {
+      pokemon: props.pokemon,
+      index: props.index
+    }
+  }
+
   // Função para levar até página de detalhes
   // Recebe o nome do Pokémon, para buscar seus respectivos dados na API
   pokemonDetails(pokemon) {

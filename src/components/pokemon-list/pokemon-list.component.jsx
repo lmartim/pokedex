@@ -19,7 +19,7 @@ class PokemonList extends Component {
 
     this.state = {
       pokemons: props.pokemons,
-      translate: 0,
+      pokemonList: props.pokemons.pokemons[0],
       slot: 1,
       lastSlot: 1,
       searchInput: ""
@@ -27,28 +27,24 @@ class PokemonList extends Component {
   }
 
   // Atualizando o estado sempre que alguma informação por atualizada
-  static getDerivedStateFromProps(props) {
+  static getDerivedStateFromProps(props, state) {
     return {
       pokemons: props.pokemons,
+      pokemonList: props.pokemons.pokemons[state.slot-1],
     }
   }
 
   // Função responsável por carregar mais Pokémon e fazer a movimentação da listagem
   movePokemonListing(range) {
     const updatedSlot = this.state.slot + (range * -1)
-    let translate = 0
 
     if (updatedSlot > this.state.lastSlot)
       this.props.getPokemons(this.state.pokemons.next)
 
-    if (updatedSlot >= 2) {
-      translate = this.state.translate + 836 * range
-    }
-
     this.setState({
-      translate: translate,
       slot: updatedSlot >= 1 ? updatedSlot : 1,
-      lastSlot: updatedSlot > this.state.lastSlot ? updatedSlot : this.state.lastSlot
+      lastSlot: updatedSlot > this.state.lastSlot ? updatedSlot : this.state.lastSlot,
+      pokemonList: this.state.pokemons.pokemons[updatedSlot - 1],
     })
   }
 
@@ -58,26 +54,23 @@ class PokemonList extends Component {
   }
 
   render() {
-    const pokemons = this.state.pokemons.pokemons
-    
+    const pokemons = this.state.pokemonList
     return (
       <PokemonListBlock data-testid="pokemonList">
-        <PokemonListContent translate={this.state.translate}>
+        <PokemonListContent>
             {
               // Faz a listagem dos Pokémons, chamando o componete PokemonSlot e passando suas respectivas informações como prop
-              pokemons.map((pokemonList, key) => (
-                <PokemonListListing key={key}>
-                  <Columns>
-                    {
-                      pokemonList.length > 0 ? pokemonList.map((pokemon, index) => (
-                        <Columns.Column key={index} size="one-quarter">
-                          <PokemonSlot pokemon={pokemon} index={index+(16*key)} />
-                        </Columns.Column>
-                      )) : null
-                    }
-                  </Columns>
-                </PokemonListListing>
-              ))
+              <PokemonListListing>
+                <Columns>
+                  {
+                  pokemons && pokemons.length > 0 ? pokemons.map((pokemon, index) => (
+                      <Columns.Column key={index} size="one-quarter">
+                        <PokemonSlot pokemon={pokemon} index={index+(16*(this.state.slot-1))} />
+                      </Columns.Column>
+                    )) : null
+                  }
+                </Columns>
+              </PokemonListListing>
             }
         </PokemonListContent>
         <PokemonListFooter>
@@ -122,12 +115,14 @@ const PokemonListContent = styled.div`
   display: -webkit-box;
   white-space: nowrap;
   transition: .3s;
-  transform: translateX(${props => props.translate}px);
 `
 
 const PokemonListListing = styled.div`
   &:not(:first-child) {
     margin-left: 1.50rem;
+  }
+  @media (max-width: 992px) {
+    width: 100%;
   }
 `
 
@@ -136,6 +131,9 @@ const PokemonListFooter = styled.section`
   padding: 15px;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
 `
 
 const PokemonListButtonBoxes = styled.div`
@@ -148,6 +146,9 @@ const PokemonListButtonBoxes = styled.div`
   width: 250px;
   position: relative;
   text-align: center;
+  @media (max-width: 992px) {
+    width: 100%;
+  }
   svg {
     transform: scale(2.5);
     position: absolute;
@@ -174,6 +175,10 @@ const PokemonListButtonSearch = styled.div`
   border-radius: 100px;
   width: 250px;
   position: relative;
+  @media (max-width: 992px) {
+    width: 100%;
+    margin-top: 30px;
+  }
   input {
     font-size: 15px;
     border: 0;

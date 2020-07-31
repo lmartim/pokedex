@@ -59,7 +59,7 @@ class Home extends Component {
                 // Em caso de falha, exibe mensagem e botão para tentar novamente
                 return (
                   <HomeContentBlockFail>
-                    Não foi possível obter os dados
+                    Não foi possível obter os dados<br/>
                     <Button className='failcontentblock__button--state-fail' color="primary" onClick={() => this.props.getInitialPokemons()}>
                       Tentar novamente
                     </Button>
@@ -95,4 +95,6 @@ const HomeContentBlock = styled.section``;
 
 const HomeContentBlockLoader = styled.div``;
 
-const HomeContentBlockFail = styled.div``;
+const HomeContentBlockFail = styled.div`
+  text-align: center;
+`;

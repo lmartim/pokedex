@@ -48,11 +48,12 @@ class Details extends Component {
   render() {
     const selected = this.state.selected
     const isFavorited = this.state.isFavorited
+
     return (
       <section>
       {
 
-        selected ? (
+        selected && selected.length > 0 ? (
           <Container>
             <DetailsBlock>
               <Columns>
@@ -188,6 +189,9 @@ const DetailsBlock = styled.section`
   .columns {
     width: 100%;
   }
+  @media (max-width: 992px) {
+    justify-content: center;
+  }
 `;
 
 const DetailsLeftBlockContent = styled.div`
@@ -277,6 +281,9 @@ const PokemonListFooter = styled.section`
   padding: 15px;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
 `
 
 const PokemonListButtonBack = styled.div`
@@ -289,6 +296,9 @@ const PokemonListButtonBack = styled.div`
   width: 250px;
   position: relative;
   text-align: center;
+  @media (max-width: 992px) {
+    width: 100%;
+  }
   &:hover {
     cursor: pointer;
   }
@@ -310,6 +320,10 @@ const PokemonListButtonSearch = styled.div`
   border-radius: 100px;
   width: 250px;
   position: relative;
+  @media (max-width: 992px) {
+    width: 100%;
+    margin-top: 30px;
+  }
   input {
     font-size: 15px;
     border: 0;

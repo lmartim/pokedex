@@ -25,29 +25,31 @@ const rotate360 = keyframes`
 `;
 
 const Icon = styled.div`
-  animation: ${rotate360} 1s linear infinite;
+  animation: ${ rotate360 } 1s linear infinite;
   width: 60px;
   height: 60px;
   background-color: #fff;
-  border-radius: 50% ;
+  border-radius: 50%;
   position: relative;
   overflow: hidden;
   border: 3px solid;
-  &:after {
+  margin: 0 auto;
+  &:: after {
     content: '';
     position: absolute;
     width: 60px;
-    height: 30px;
+    height: 34px;
     background-color: red;
     border-bottom: 4px solid;
-    top: -4px
+    top: -4px;
+    left: 0;
   }
-  &:before {
+  &:: before {
     content: '';
     position: absolute;
     background-color: #fff;
-    width: 10px;
-    height:10px;
+    width: 18px;
+    height: 18px;
     border: 4px solid;
     border-radius: 50%;
     bottom: 18px;

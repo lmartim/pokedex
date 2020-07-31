@@ -44,11 +44,15 @@ const AppBlockBg = styled.div `
   background-image: url(${props => props.bg});
   background-size: cover;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   top: 0;
   left: 0;
   position: absolute;
   z-index: -10;
+  @media (max-width: 992px) {
+    background-position: right;
+  }
 `
 
 const AppBlockContent = styled.div `
