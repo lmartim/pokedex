@@ -1,4 +1,4 @@
-// Estado inicial dos quadrinhos
+// Estado inicial dos Pokémons
 export const INITIAL_STATE_POKEMONS = {
   selected: [],
   favorites: [],
@@ -7,7 +7,7 @@ export const INITIAL_STATE_POKEMONS = {
   next: null
 }
 
-// Reducer responsável por atualizar o estado dos quadrinhos
+// Reducer responsável por atualizar o estado dos Pokémons
 export function pokemonsReducer(state = INITIAL_STATE_POKEMONS, action) {
   switch (action.type) {
     case 'GET_POKEMONS_SUCCESS':
