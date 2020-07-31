@@ -1,68 +1,49 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pokédex
 
-## Available Scripts
+Apresenta no animê Pokémon, uma Pokédex é um aparelho, que consegue analisar, obter e armazenar informações sobre diversos Pokémons.
 
-In the project directory, you can run:
+## Instalação
 
-### `yarn start`
+A instalação é bem simples, utilizando o gerenciador [yarn](https://yarnpkg.com/).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```yarn
+yarn install
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Uso
 
-### `yarn test`
+Para rodar o projeto localmente, basta dar um start.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```yarn
+yarn start
+```
+Após iniciar a aplicação, ela pode ser acessada em [localhost:3000](http://localhost:3000). Caso não esteja abrindo neste caminho, verifique o terminal para conseguir verificar a rota correta.
 
-### `yarn build`
+## Tecnologias
+As principais tecnologias utilizadas nesta aplicação foram:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* [ReactJS](https://reactjs.org/)
+* [Redux](https://redux.js.org/) (Gerenciamento de estado)
+* [Bulma](https://bulma.io/) (Responsivo)
+* [styled-components](https://styled-components.com/) (CSS-in-JS)
+* [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) (Testes)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## API
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para a consulta de Pokémons, são consumidas diversas APIs da PokéAPI. Para mais informações, acesse a página [neste link](https://pokeapi.co/).
 
-### `yarn eject`
+## Testes
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Uma breve cobertura de testes foi realizada, bastando rodar um comando, para executá-los:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```yarn
+yarn test
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Visual
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Os estilos visuais, foram brevemente baseados na [Pokédex apresentada nos jogos Pokémon Sword & Shield](https://darylh.com/wp-content/uploads/2020/02/ezgif.com-optimize-1.gif)
 
-## Learn More
+## Arquivo .env
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Normalmente, o arquivo .env não é comitado, tendo as variáveis ajustadas no deploy, de acordo com o ambiente. Para fins de testes, está arquivo está sendo enviado no momento.

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Columns, Container, Button } from 'react-bulma-components/dist';
+import { Columns } from 'react-bulma-components/dist';
 import styled from "styled-components";
 
 import FavoritesBar from './components/favorites-bar/favorites-bar.component';
@@ -42,6 +42,7 @@ const AppBlock = styled.section `
 
 const AppBlockBg = styled.div `
   background-image: url(${props => props.bg});
+  background-size: cover;
   width: 100vw;
   height: 100vh;
   top: 0;

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux';
 import styled from "styled-components";
 
-// Componente responsável pelos boxes dos personagens, exibidos na listagem
-// Recebe uma prop com as informações do personagem
+import { getPokemon } from '../../redux/pokemons/pokemons.actions';
+
+// Componente responsável pelos slots dos Pokémons, exibidos na listagem
+// Recebe uma prop com as informações dos monstrinhos
 class PokemonSlot extends Component {
   constructor(props) {
     super(props)
@@ -14,21 +17,35 @@ class PokemonSlot extends Component {
     }
   }
 
+  // Função para levar até página de detalhes
+  // Recebe o nome do Pokémon, para buscar seus respectivos dados na API
+  pokemonDetails(pokemon) {
+    this.props.getPokemon(pokemon)
+    this.props.history.push({ pathname: '/detalhes' });
+  }
+
   render() {
     const pokemon = this.state.pokemon
     const index = this.state.index
     return (
-      <PokemonSlotBox>
-        {/* Exibe a imagem do personagem */}
+      <PokemonSlotBox onClick={() => this.pokemonDetails(pokemon.name)}>
+        {/* Exibe a imagem do Pokémon */}
         <PokemonSlotImage src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`} alt={pokemon.name} />
-        {/* Exibe o nome do personagem */}
-        <PokemonSlotName>#{index} - {pokemon.name}</PokemonSlotName>
+        {/* Exibe o nome do Pokémon */}
+        <PokemonSlotName>#{index+1} - {pokemon.name}</PokemonSlotName>
       </PokemonSlotBox>
     )
   }
 }
 
-export default withRouter((PokemonSlot));
+// Funções do Redux, para chamar as actions
+const mapDispatchToProps = dispatch => {
+  return {
+    getPokemon: (name) => dispatch(getPokemon(name)),
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(PokemonSlot));
 
 //CSS-in-JS
 const PokemonSlotBox = styled.div`
@@ -41,7 +58,11 @@ const PokemonSlotBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+  transition: all .3s;
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(255,255,255, 0.8);
+  }
 `
 
 const PokemonSlotImage = styled.img`

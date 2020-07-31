@@ -24,15 +24,25 @@ export function pokemonsReducer(state = INITIAL_STATE_POKEMONS, action) {
         status: 'fail',
         next: null,
       }
+    case 'GET_POKEMON_SUCCESS':
+      return {
+        ...state,
+        selected: action.payload,
+      }
+    case 'GET_POKEMON_FAIL':
+      return {
+        ...state,
+        selected: null,
+      }
+    case 'PUT_FAVORITE_SUCCESS':
+      return {
+        ...state,
+        favorites: action.payload
+      }
     case 'LOAD_POKEMONS':
       return {
         ...state,
         status: 'loading'
-      }
-    case 'SAVE_POKEMON':
-      return {
-        ...state,
-        selected: action.payload
       }
     default:
       return state;

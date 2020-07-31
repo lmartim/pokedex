@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import styled from "styled-components";
 import { faCaretLeft, faCaretRight, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -6,12 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import PokemonSlot from '../pokemon-slot/pokemon-slot.component';
 
-import { getPokemons } from '../../redux/pokemons/pokemons.actions';
+import { getPokemons, getPokemon } from '../../redux/pokemons/pokemons.actions';
 
 import 'react-bulma-components/dist/react-bulma-components.min.css';
-import { Button, Columns } from 'react-bulma-components/dist';
+import { Columns } from 'react-bulma-components/dist';
 
-// Componente responsável pela listagem de quadrinhos
+// Componente responsável pela listagem de Pokémons
 class PokemonList extends Component {
   constructor(props) {
     super(props);
@@ -20,27 +21,19 @@ class PokemonList extends Component {
       pokemons: props.pokemons,
       translate: 0,
       slot: 1,
-      lastSlot: 1
+      lastSlot: 1,
+      searchInput: ""
     }
   }
 
   // Atualizando o estado sempre que alguma informação por atualizada
-  UNSAFE_componentWillReceiveProps(props) {
-    console.log('0', props.pokemons)
-    this.setState({
+  static getDerivedStateFromProps(props) {
+    return {
       pokemons: props.pokemons,
-    })
+    }
   }
 
-  // static getDerivedStateFromProps(props) {
-  //   return {
-  //     pokemons: props.pokemons,
-  //   }
-  // }
-
-  // Função responsável por carregar mais quadrinhos. 
-  // Ele ativa o ícone de carregamento e dispara uma action, 
-  // para chamar os próximos 16 Pokémons
+  // Função responsável por carregar mais Pokémon e fazer a movimentação da listagem
   movePokemonListing(range) {
     const updatedSlot = this.state.slot + (range * -1)
     let translate = 0
@@ -49,8 +42,7 @@ class PokemonList extends Component {
       this.props.getPokemons(this.state.pokemons.next)
 
     if (updatedSlot >= 2) {
-      console.log('!!!!', updatedSlot)
-      translate = this.state.translate + 835 * range
+      translate = this.state.translate + 836 * range
     }
 
     this.setState({
@@ -58,18 +50,22 @@ class PokemonList extends Component {
       slot: updatedSlot >= 1 ? updatedSlot : 1,
       lastSlot: updatedSlot > this.state.lastSlot ? updatedSlot : this.state.lastSlot
     })
-    
+  }
+
+  searchPokemon() {
+    this.props.getPokemon(this.state.searchInput)
+    this.props.history.push({ pathname: '/detalhes' });
   }
 
   render() {
+    const pokemons = this.state.pokemons.pokemons
+    
     return (
       <PokemonListBlock data-testid="pokemonList">
         <PokemonListContent translate={this.state.translate}>
             {
               // Faz a listagem dos Pokémons, chamando o componete PokemonSlot e passando suas respectivas informações como prop
-              // Na hora de chamar o componente PokemonSlot, é feito um cálculo, a partir do array atual, para ser enviado o número
-              // do Pokémon atual, como prop
-              this.state.pokemons.pokemons.map((pokemonList, key) => (
+              pokemons.map((pokemonList, key) => (
                 <PokemonListListing key={key}>
                   <Columns>
                     {
@@ -86,14 +82,15 @@ class PokemonList extends Component {
         </PokemonListContent>
         <PokemonListFooter>
           <PokemonListButtonBoxes>
-              {/* // Este bloco irá exibir os botões responsáveis por trocar os boxes, assim realizando a paginação */}
+              {/* Este bloco irá exibir os botões responsáveis por trocar os boxes, assim realizando a paginação */}
               { this.state.slot > 1 ? <FontAwesomeIcon icon={faCaretLeft} onClick={() => this.movePokemonListing(1)} /> : null } 
               Box #{this.state.slot}
               <FontAwesomeIcon icon={faCaretRight} onClick={() => this.movePokemonListing(-1)} />
           </PokemonListButtonBoxes>
           <PokemonListButtonSearch>
-            <FontAwesomeIcon icon={faSearch} onClick={() => this.loadMorePokemons()} />
-            <input type="text" placeholder="Pesquisar" />
+            {/* Exibir o input de pesquisa */}
+            <FontAwesomeIcon icon={faSearch} onClick={() => this.searchPokemon()} />
+            <input type="text" placeholder="Pesquisar" onChange={(e) => this.setState({ searchInput: e.target.value })} />
           </PokemonListButtonSearch>
         </PokemonListFooter>
       </PokemonListBlock>
@@ -108,14 +105,17 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getPokemons: (limit) => dispatch(getPokemons(limit)),
+    getPokemons: (next) => dispatch(getPokemons(next)),
+    getPokemon: (name) => dispatch(getPokemon(name))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PokemonList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PokemonList));
 
 // CSS-in-JS
-const PokemonListBlock = styled.section``
+const PokemonListBlock = styled.section`
+  overflow: hidden;
+`
 
 const PokemonListContent = styled.div`
   display: box;
@@ -132,7 +132,8 @@ const PokemonListListing = styled.div`
 `
 
 const PokemonListFooter = styled.section`
-  margin-top: 50px;
+  margin-top: 35px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
 `

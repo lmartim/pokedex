@@ -11,7 +11,7 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 import { Button, Container } from 'react-bulma-components/dist';
 
 // Page responsável pela primeira página do app
-// Ela irá exibir uma lista dos quadrinhos
+// Ela irá exibir uma lista de Pokémons
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -29,8 +29,8 @@ class Home extends Component {
   // Atualizando o estado sempre que alguma informação por atualizada
   static getDerivedStateFromProps(props, state) {
     if (props.pokemons.status === 'loading') {
-      // Verifica o estado da página, para atualizar a quantidade de HQs
-      props.getPokemons(state.pokemons.limit)
+      // Buscando os 16 primeiros Pokémons da API
+      props.getInitialPokemons()
       return null
     }
 
@@ -60,7 +60,7 @@ class Home extends Component {
                 return (
                   <HomeContentBlockFail>
                     Não foi possível obter os dados
-                    <Button className='failcontentblock__button--state-fail' color="primary" onClick={() => this.props.loadPokemons()}>
+                    <Button className='failcontentblock__button--state-fail' color="primary" onClick={() => this.props.getInitialPokemons()}>
                       Tentar novamente
                     </Button>
                   </HomeContentBlockFail>
@@ -91,13 +91,8 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 // CSS-in-JS
-const HomeContentBlock = styled.section`
+const HomeContentBlock = styled.section``;
 
-`;
+const HomeContentBlockLoader = styled.div``;
 
-const HomeContentBlockLoader = styled.div`
-`
-
-const HomeContentBlockFail = styled.div`
-
-`
+const HomeContentBlockFail = styled.div``;

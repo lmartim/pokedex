@@ -1,9 +1,15 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, cleanup } from './utils/test/test-utils';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+afterEach(cleanup)
+
+// Testes relacionados ao componente App
+
+// Renderiza o componente App e faz uma checagem por snapshot
+// É necessário a atualizaçãod o snapshot, caso tenha mudança no componente
+test('render app', () => {
+  const { asFragment } = render(<App />)
+    
+  expect(asFragment(<App />)).toMatchSnapshot()
 });
