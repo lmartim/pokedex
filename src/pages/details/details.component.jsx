@@ -46,6 +46,7 @@ class Details extends Component {
   }
 
   render() {
+    console.log(this.state.selected)
     const selected = this.state.selected
     const isFavorited = this.state.isFavorited
 
@@ -53,7 +54,7 @@ class Details extends Component {
       <section>
       {
 
-        selected && selected.length > 0 ? (
+        selected ? (
           <Container>
             <DetailsBlock>
               <Columns>
